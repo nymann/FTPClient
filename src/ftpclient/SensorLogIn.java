@@ -41,10 +41,10 @@ public class SensorLogIn extends javax.swing.JPanel {
         jLabel2.setText("Port");
 
         jButton1.setText("OK");
-        jButton1.addActionListener(evt -> jButton1ActionPerformed(evt));
+        jButton1.addActionListener(this::jButton1ActionPerformed);
 
         jButton2.setText("Cancel");
-        jButton2.addActionListener(evt -> jButton2ActionPerformed(evt));
+        jButton2.addActionListener(this::jButton2ActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

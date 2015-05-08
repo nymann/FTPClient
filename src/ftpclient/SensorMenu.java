@@ -39,28 +39,28 @@ public class SensorMenu extends javax.swing.JPanel {
         jButton8 = new javax.swing.JButton();
 
         jButton1.setText("Get Sensor amount");
-        jButton1.addActionListener(evt -> jButton1ActionPerformed(evt));
+        jButton1.addActionListener(this::jButton1ActionPerformed);
 
         jButton2.setText("Get Sensor info");
-        jButton2.addActionListener(evt -> jButton2ActionPerformed(evt));
+        jButton2.addActionListener(this::jButton2ActionPerformed);
 
         jButton3.setText("ECHO Service");
-        jButton3.addActionListener(evt -> jButton3ActionPerformed(evt));
+        jButton3.addActionListener(this::jButton3ActionPerformed);
 
         jButton4.setText("Set sensor samplerate");
-        jButton4.addActionListener(evt -> jButton4ActionPerformed(evt));
+        jButton4.addActionListener(this::jButton4ActionPerformed);
 
         jButton5.setText("Stop Sensor");
-        jButton5.addActionListener(evt -> jButton5ActionPerformed(evt));
+        jButton5.addActionListener(this::jButton5ActionPerformed);
 
         jButton6.setText("Start Sensor");
-        jButton6.addActionListener(evt -> jButton6ActionPerformed(evt));
+        jButton6.addActionListener(this::jButton6ActionPerformed);
 
         jButton7.setText("Status");
-        jButton7.addActionListener(evt -> jButton7ActionPerformed(evt));
+        jButton7.addActionListener(this::jButton7ActionPerformed);
 
         jButton8.setText("Exit");
-        jButton8.addActionListener(evt -> jButton8ActionPerformed(evt));
+        jButton8.addActionListener(this::jButton8ActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

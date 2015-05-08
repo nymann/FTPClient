@@ -49,13 +49,13 @@ public class FTPLogIn extends javax.swing.JPanel {
 
         jLabel3.setText("Password");
 
-        jPasswordField1.addActionListener(evt -> jPasswordField1ActionPerformed(evt));
+        jPasswordField1.addActionListener(this::jPasswordField1ActionPerformed);
 
         jButton1.setText("OK");
-        jButton1.addActionListener(evt -> jButton1ActionPerformed(evt));
+        jButton1.addActionListener(this::jButton1ActionPerformed);
 
         jButton2.setText("Cancel");
-        jButton2.addActionListener(evt -> jButton2ActionPerformed(evt));
+        jButton2.addActionListener(this::jButton2ActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -111,9 +111,7 @@ public class FTPLogIn extends javax.swing.JPanel {
 
             boolean success = false;
 
-            for (int i = 0; i < placeholder.length; i++) {
-                String br = placeholder[i];
-                
+            for (String br : placeholder) {
                 if (br.contains("230")) {
                     owner.changeTab(3);
                     success = true;
@@ -138,8 +136,7 @@ public class FTPLogIn extends javax.swing.JPanel {
 
                 boolean success = false;
 
-                for (int i = 0; i < placeholder.length; i++) {
-                    String br = placeholder[i];
+                for (String br : placeholder) {
                     if (br.contains("230")) {
                         owner.changeTab(3);
                         success = true;

@@ -41,19 +41,19 @@ public class FTPMenu extends javax.swing.JPanel {
         jButton5 = new javax.swing.JButton();
 
         jButton1.setText("Help");
-        jButton1.addActionListener(evt -> jButton1ActionPerformed(evt));
+        jButton1.addActionListener(this::jButton1ActionPerformed);
 
         jButton2.setText("List Directory");
-        jButton2.addActionListener(evt -> jButton2ActionPerformed(evt));
+        jButton2.addActionListener(this::jButton2ActionPerformed);
 
         jButton3.setText("Retreive file");
-        jButton3.addActionListener(evt -> jButton3ActionPerformed(evt));
+        jButton3.addActionListener(this::jButton3ActionPerformed);
 
         jButton4.setText("Upload file");
-        jButton4.addActionListener(evt -> jButton4ActionPerformed(evt));
+        jButton4.addActionListener(this::jButton4ActionPerformed);
 
         jButton5.setText("Exit");
-        jButton5.addActionListener(evt -> jButton5ActionPerformed(evt));
+        jButton5.addActionListener(this::jButton5ActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -89,9 +89,8 @@ public class FTPMenu extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             String[] replyFromServer = owner.ftp.sendCommand("HELP");
-            
-            for (int i = 0; i < replyFromServer.length; i++) {
-                String br = replyFromServer[i];
+
+            for (String br : replyFromServer) {
                 owner.updateTerminalText(br);
             }
         } catch (IOException ex) {
@@ -106,9 +105,9 @@ public class FTPMenu extends javax.swing.JPanel {
 
         try {
             String[] receivedData = owner.ftp.receiveData("LIST");
-            
-            for (int i = 0; i < receivedData.length; i++) {
-                owner.updateTerminalText(receivedData[i]);
+
+            for (String aReceivedData : receivedData) {
+                owner.updateTerminalText(aReceivedData);
             }
             
         } catch (IOException ex) {

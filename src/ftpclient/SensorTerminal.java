@@ -35,7 +35,7 @@ public class SensorTerminal extends javax.swing.JPanel {
         jTextArea2 = new javax.swing.JTextArea();
 
         jButton1.setText("Back");
-        jButton1.addActionListener(evt -> jButton1ActionPerformed(evt));
+        jButton1.addActionListener(this::jButton1ActionPerformed);
 
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);

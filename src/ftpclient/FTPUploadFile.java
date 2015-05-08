@@ -49,10 +49,10 @@ public class FTPUploadFile extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTextArea2);
 
         jButton1.setText("OK");
-        jButton1.addActionListener(evt -> jButton1ActionPerformed(evt));
+        jButton1.addActionListener(this::jButton1ActionPerformed);
 
         jButton2.setText("Cancel");
-        jButton2.addActionListener(evt -> jButton2ActionPerformed(evt));
+        jButton2.addActionListener(this::jButton2ActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

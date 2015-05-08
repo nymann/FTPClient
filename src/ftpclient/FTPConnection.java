@@ -37,9 +37,9 @@ public class FTPConnection
         sendCommand("USER "+user);
         
         String[] replyFromServer = sendCommand("PASS "+code);
-        
-        for (int i = 0; i < replyFromServer.length; i++) {
-            System.out.println("Reply on pass request: " + replyFromServer[i]);
+
+        for (String aReplyFromServer : replyFromServer) {
+            System.out.println("Reply on pass request: " + aReplyFromServer);
         }
         
         return replyFromServer;
@@ -73,7 +73,7 @@ public class FTPConnection
         }
         
         List<String> aList = new ArrayList<>();
-        String s = "";
+        String s;
         
         while(in.ready()) {
             s = in.readLine();
@@ -92,10 +92,10 @@ public class FTPConnection
     {
         String[] placeholder = sendCommand("PASV");
         String addrAndPort = "";
-        
-        for (int i = 0; i < placeholder.length; i++) {
-            addrAndPort = placeholder[i];
-            System.out.println("Address and port: " + placeholder[i]);
+
+        for (String aPlaceholder : placeholder) {
+            addrAndPort = aPlaceholder;
+            System.out.println("Address and port: " + aPlaceholder);
         }
 
         StringTokenizer st = new StringTokenizer(addrAndPort, "(,)");
@@ -133,7 +133,7 @@ public class FTPConnection
 //		String s = dataInd.readLine();
 //
                 List<String> sa = new ArrayList<>();
-                String s = "";
+                String s;
                 
                 while((s = dataInd.readLine()) != null) {
                     sa.add(s);
