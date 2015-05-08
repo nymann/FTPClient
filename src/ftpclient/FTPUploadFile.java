@@ -100,12 +100,12 @@ public class FTPUploadFile extends javax.swing.JPanel {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        owner.changeTab(3);
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         owner.changeTab(3);
     }//GEN-LAST:event_jButton2ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
