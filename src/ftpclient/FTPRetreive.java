@@ -5,6 +5,8 @@
  */
 package ftpclient;
 
+import java.io.IOException;
+
 /**
  *
  * @author NannaJosefine
@@ -92,6 +94,11 @@ public class FTPRetreive extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         System.out.println("Test");
+        try {
+            owner.ftp.receiveData("RETR" + jTextField1.getText());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
