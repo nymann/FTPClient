@@ -93,7 +93,6 @@ public class FTPRetreive extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        System.out.println("Test");
         try {
             owner.ftp.receiveData("RETR" + jTextField1.getText());
         } catch (IOException e) {
