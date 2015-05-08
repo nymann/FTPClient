@@ -48,7 +48,7 @@ public class TabHolder extends javax.swing.JPanel {
         terminalFrame.setLayout(new BorderLayout());
         terminalFrame.setTitle("Terminal");
         terminalFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        terminalFrame.setPreferredSize(new Dimension(400,400));
+        terminalFrame.setPreferredSize(new Dimension(800,600));
         terminalFrame.setLocation(800, 200);
         terminalFrame.add(layerManager, BorderLayout.CENTER);
         terminalFrame.setUndecorated(false);
@@ -62,8 +62,8 @@ public class TabHolder extends javax.swing.JPanel {
         jTextArea.setLineWrap(true);
         jTextArea.setEditable(false);
 
-        jScrollPane.setBounds(0, 0, 400, 400);
-        layerManager.setBounds(0, 0, 400, 400);
+        jScrollPane.setBounds(0, 0, 800, 590);
+        layerManager.setBounds(0, 0, 800, 600);
 
         layerManager.add(jScrollPane, 1, 0);
         
