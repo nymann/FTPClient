@@ -6,8 +6,6 @@ package ftpclient;
  * and open the template in the editor.
  */
 
-import ftpclient.*;
-
 /**
  *
  * @author NannaJosefine

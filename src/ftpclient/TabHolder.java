@@ -5,19 +5,10 @@
  */
 package ftpclient;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.net.Socket;
-import javax.swing.JFrame;
-import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.SwingUtilities;
-import javax.swing.plaf.basic.BasicTabbedPaneUI;
+import javax.swing.*;
 import javax.swing.text.DefaultCaret;
+import java.awt.*;
+import java.net.Socket;
 
 /**
  *

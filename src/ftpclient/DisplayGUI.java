@@ -1,6 +1,6 @@
 package ftpclient;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 public class DisplayGUI {
 
