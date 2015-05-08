@@ -100,7 +100,7 @@ public class FTPUploadFile extends javax.swing.JPanel {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        owner.changeTab(3);
+        owner.changeTab(3); // back to ftp menu.
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
