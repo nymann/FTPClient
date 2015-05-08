@@ -49,11 +49,7 @@ public class FTPRetreive extends javax.swing.JPanel {
         jButton1.setText("OK");
 
         jButton2.setText("Cancel");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        jButton2.addActionListener(evt -> jButton2ActionPerformed(evt));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

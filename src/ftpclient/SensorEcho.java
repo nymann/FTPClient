@@ -39,11 +39,7 @@ public class SensorEcho extends javax.swing.JPanel {
         jButton1.setText("OK");
 
         jButton2.setText("Cancel");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        jButton2.addActionListener(evt -> jButton2ActionPerformed(evt));
 
         jLabel1.setText("Message");
 

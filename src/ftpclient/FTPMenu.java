@@ -44,39 +44,19 @@ public class FTPMenu extends javax.swing.JPanel {
         jButton5 = new javax.swing.JButton();
 
         jButton1.setText("Help");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jButton1.addActionListener(evt -> jButton1ActionPerformed(evt));
 
         jButton2.setText("List Directory");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        jButton2.addActionListener(evt -> jButton2ActionPerformed(evt));
 
         jButton3.setText("Retreive file");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
+        jButton3.addActionListener(evt -> jButton3ActionPerformed(evt));
 
         jButton4.setText("Upload file");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
+        jButton4.addActionListener(evt -> jButton4ActionPerformed(evt));
 
         jButton5.setText("Exit");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
+        jButton5.addActionListener(evt -> jButton5ActionPerformed(evt));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -117,7 +97,6 @@ public class FTPMenu extends javax.swing.JPanel {
                 String br = replyFromServer[i];
                 owner.updateTerminalText(br);
             }
-            
         } catch (IOException ex) {
             Logger.getLogger(FTPMenu.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();

@@ -66,7 +66,7 @@ public class FTPConnection
             ex.printStackTrace();
         }
         
-        List<String> aList = new ArrayList();
+        List<String> aList = new ArrayList<>();
         String s = "";
         
         while(in.ready()) {
@@ -126,7 +126,7 @@ public class FTPConnection
 //		StringBuilder sb = new StringBuilder();
 //		String s = dataInd.readLine();
 //
-                List<String> sa = new ArrayList();
+                List<String> sa = new ArrayList<>();
                 String s = "";
                 
                 while((s = dataInd.readLine()) != null) {
