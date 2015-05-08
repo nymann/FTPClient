@@ -20,14 +20,22 @@ public class FTPConnection
     private PrintStream out;
     private BufferedReader in;
     
-    public BufferedReader connect(String host, String user, String code) throws IOException
+    public String[] connect(String host, String user, String code) throws IOException
     {
+        
         socket = new Socket(host,21);
         out = new PrintStream(socket.getOutputStream());
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         readReply();
+        
         sendCommand("USER "+user);
-        BufferedReader replyFromServer = sendCommand("PASS "+code);
+        
+        String[] replyFromServer = sendCommand("PASS "+code);
+        
+        for (int i = 0; i < replyFromServer.length; i++) {
+            System.out.println("Reply on pass request: " + replyFromServer[i]);
+        }
+        
         return replyFromServer;
     }
     
@@ -46,28 +54,42 @@ public class FTPConnection
 //        }
     }
     
-    public BufferedReader sendCommand(String command) throws IOException
+    public String[] sendCommand(String command) throws IOException
     {
         System.out.println("Sent: "+command);
         out.println(command);
         out.flush();         // sørg for at data sendes til værten før vi læser svar
         try {
-            Thread.sleep(200);
+            Thread.sleep(1000);
         } catch (InterruptedException ex) {
             Logger.getLogger(FTPConnection.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
         }
-        return readReply();
+        
+        List<String> aList = new ArrayList();
+        String s = "";
+        
+        while(in.ready()) {
+            s = in.readLine();
+            System.out.println("S :"+s);
+            aList.add(s);
+        }
+        
+        
+        String[] sArray = new String[aList.size()];
+        sArray = aList.toArray(sArray);
+    
+        return sArray;
     }
     
     private Socket getDataConnection() throws IOException
     {
-        BufferedReader placeholder = sendCommand("PASV");
+        String[] placeholder = sendCommand("PASV");
         String addrAndPort = "";
         
-        while(placeholder.ready())
-        {
-            addrAndPort = in.readLine();
+        for (int i = 0; i < placeholder.length; i++) {
+            addrAndPort = placeholder[i];
+            System.out.println("Address and port: " + placeholder[i]);
         }
 
         StringTokenizer st = new StringTokenizer(addrAndPort, "(,)");
@@ -95,23 +117,28 @@ public class FTPConnection
 		readReply();
 	}
 
-	public String receiveData(String command) throws IOException
+	public String[] receiveData(String command) throws IOException
 	{
 		Socket dc = getDataConnection();
-		BufferedReader dataInd = new BufferedReader(new InputStreamReader(
+                BufferedReader dataInd = new BufferedReader(new InputStreamReader(
 		dc.getInputStream()));
-		sendCommand(command);
-		StringBuilder sb = new StringBuilder();
-		String s = dataInd.readLine();
+		sendCommand(command); // returns bufferedreader
+//		StringBuilder sb = new StringBuilder();
+//		String s = dataInd.readLine();
+//
+                List<String> sa = new ArrayList();
+                String s = "";
                 
-		while (s != null) {
-			System.out.println("data: "+s);
-			sb.append(s+"\n");
-			s = dataInd.readLine();
-		}
-		dataInd.close();
+                while((s = dataInd.readLine()) != null) {
+                    sa.add(s);
+                }
+                
+                String[] recievedData = new String[sa.size()];
+                recievedData = sa.toArray(recievedData);
+
+                dataInd.close();
 		dc.close();
-		readReply();
-		return sb.toString();
+                
+                return recievedData;
 	}
 }

@@ -5,6 +5,7 @@
  */
 package ftpclient;
 
+import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -17,9 +18,10 @@ import java.util.logging.Logger;
  * @author NannaJosefine
  */
 public class FTPLogIn extends javax.swing.JPanel {
-    
+
     TabHolder owner;
     String serverReply;
+
     /**
      * Creates new form LogIn
      */
@@ -50,6 +52,12 @@ public class FTPLogIn extends javax.swing.JPanel {
         jLabel2.setText("User");
 
         jLabel3.setText("Password");
+
+        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordField1ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -115,36 +123,56 @@ public class FTPLogIn extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         try {
-            BufferedReader placeholder = owner.ftp.connect(jTextField1.getText(),jTextField2.getText(),jPasswordField1.getText());
-            String ftpCodes = "";
+            String[] placeholder = owner.ftp.connect(jTextField1.getText(), jTextField2.getText(), jPasswordField1.getText());
+
             boolean success = false;
-            String br = "";
-            
-            while((br = placeholder.readLine()) != null)
-            {
+
+            for (int i = 0; i < placeholder.length; i++) {
+                String br = placeholder[i];
                 
-                //ftpCodes = placeholder.readLine();
-                System.out.println("LALALA: "+br);
-                
-                if (br.contains("230"))
-                {
+                if (br.contains("230")) {
                     owner.changeTab(3);
                     success = true;
                     break;
                 }
             }
-            
-            if(success == false)
-            {
+            if (success == false) {
                 owner.changeTab(0);
             }
-            
+
             //placeholder.close();
         } catch (IOException ex) {
             Logger.getLogger(FTPLogIn.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+
+            try {
+                String[] placeholder = owner.ftp.connect(jTextField1.getText(), jTextField2.getText(), jPasswordField1.getText());
+
+                boolean success = false;
+
+                for (int i = 0; i < placeholder.length; i++) {
+                    String br = placeholder[i];
+                    if (br.contains("230")) {
+                        owner.changeTab(3);
+                        success = true;
+                        break;
+                    }
+                }
+
+                if (success == false) {
+                    owner.changeTab(0);
+                }
+
+                //placeholder.close();
+            } catch (IOException ex) {
+                Logger.getLogger(FTPLogIn.class.getName()).log(Level.SEVERE, null, ex);
+                ex.printStackTrace();
+            }
+    }//GEN-LAST:event_jPasswordField1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

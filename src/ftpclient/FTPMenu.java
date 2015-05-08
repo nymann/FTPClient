@@ -7,6 +7,7 @@ package ftpclient;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -49,7 +50,7 @@ public class FTPMenu extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setText("List");
+        jButton2.setText("List Directory");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -85,12 +86,11 @@ public class FTPMenu extends javax.swing.JPanel {
                 .addGap(158, 158, 158)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(151, Short.MAX_VALUE))
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(147, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,19 +111,11 @@ public class FTPMenu extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            BufferedReader replyFromServer = owner.ftp.sendCommand("HELP");
+            String[] replyFromServer = owner.ftp.sendCommand("HELP");
             
-            String br = "";
-            owner.changeTab(5);
-            while(replyFromServer.ready())
-            {
-                br = replyFromServer.readLine();
-                System.out.println("h" + br);
-                //owner.fTerminal.updateTerminal(br);
-                //displayGUI.updateTerminalText(br);
-                
+            for (int i = 0; i < replyFromServer.length; i++) {
+                String br = replyFromServer[i];
                 owner.updateTerminalText(br);
-               
             }
             
         } catch (IOException ex) {
@@ -135,7 +127,17 @@ public class FTPMenu extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        owner.changeTab(5);
+
+        try {
+            String[] receivedData = owner.ftp.receiveData("LIST");
+            
+            for (int i = 0; i < receivedData.length; i++) {
+                owner.updateTerminalText(receivedData[i]);
+            }
+            
+        } catch (IOException ex) {
+            Logger.getLogger(FTPMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

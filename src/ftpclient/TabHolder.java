@@ -17,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.plaf.basic.BasicTabbedPaneUI;
+import javax.swing.text.DefaultCaret;
 
 /**
  *
@@ -31,7 +32,8 @@ public class TabHolder extends javax.swing.JPanel {
     public JPanel jPanel = new JPanel();
     public JTextArea jTextArea = new JTextArea();
     public JLayeredPane layerManager = new JLayeredPane();
-    //public JScrollPane jScrollPane = new JScrollPane();
+    //public JScrollPane jScrollPane = new JScrollPane(jTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+    public JScrollPane jScrollPane = new JScrollPane();
     //public FTPTerminal fTerminal = new FTPTerminal();
     
     /**
@@ -54,7 +56,6 @@ public class TabHolder extends javax.swing.JPanel {
         uploadFile1.owner = this;
         sensorSampleRate1.owner = this;
         
-        
         terminalFrame.setLayout(new BorderLayout());
         terminalFrame.setTitle("Terminal");
         terminalFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -65,15 +66,26 @@ public class TabHolder extends javax.swing.JPanel {
         terminalFrame.setAlwaysOnTop(false);
         
         jPanel.setBounds(0, 0, Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
+        //jPanel.setBounds(0, 0, 800, 600);
         jPanel.setBackground(Color.black);
 
         jTextArea.setBounds(10, 10, Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
+        //jTextArea.setBounds(0, 0, 800, 600);
         jTextArea.setBackground(Color.BLACK);
         jTextArea.setForeground(Color.white);
         jTextArea.setEditable(false);
-
-        layerManager.add(jPanel, 1, 0);
+        
+        DefaultCaret caret = (DefaultCaret)jTextArea.getCaret();
+        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+        
+        
+        jScrollPane.setBounds(0, 0, 800, 600);
+        jScrollPane.setAutoscrolls(true);
+        jScrollPane.add(jPanel);
+        
+        //layerManager.add(jPanel, 1, 0);
         layerManager.add(jTextArea, 2, 0);
+        layerManager.add(jScrollPane,1, 0);
         
         terminalFrame.pack();
         terminalFrame.setVisible(true);

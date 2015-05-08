@@ -5,7 +5,13 @@
  */
 package ftpclient;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import javax.swing.text.DefaultCaret;
 
 /**
  *
@@ -22,6 +28,7 @@ public class FTPTerminal extends javax.swing.JPanel {
      */
     public FTPTerminal() {
         initComponents();
+        
     }
 
     /**
