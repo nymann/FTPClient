@@ -17,38 +17,34 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
  * @author Lime
  */
-public class FTPConnection
-{
+public class FTPConnection {
     private Socket socket;
     private PrintStream out;
     private BufferedReader in;
-    
-    public String[] connect(String host, String user, String code) throws IOException
-    {
-        
-        socket = new Socket(host,21);
+
+    public String[] connect(String host, String user, String code) throws IOException {
+
+        socket = new Socket(host, 21);
         out = new PrintStream(socket.getOutputStream());
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         readReply();
-        
-        sendCommand("USER "+user);
-        
-        String[] replyFromServer = sendCommand("PASS "+code);
+
+        sendCommand("USER " + user);
+
+        String[] replyFromServer = sendCommand("PASS " + code);
 
         for (String aReplyFromServer : replyFromServer) {
             System.out.println("Reply on pass request: " + aReplyFromServer);
         }
-        
+
         return replyFromServer;
     }
-    
-    public BufferedReader readReply() throws IOException
-    {
+
+    public BufferedReader readReply() throws IOException {
         return in;
-        
+
 //        while (true) 
 //        {
 //            String msg = in.readLine();
@@ -59,10 +55,9 @@ public class FTPConnection
 //            }
 //        }
     }
-    
-    public String[] sendCommand(String command) throws IOException
-    {
-        System.out.println("Sent: "+command);
+
+    public String[] sendCommand(String command) throws IOException {
+        System.out.println("Sent: " + command);
         out.println(command);
         out.flush();         // sørg for at data sendes til værten før vi læser svar
         try {
@@ -71,25 +66,24 @@ public class FTPConnection
             Logger.getLogger(FTPConnection.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
         }
-        
+
         List<String> aList = new ArrayList<>();
         String s;
-        
-        while(in.ready()) {
+
+        while (in.ready()) {
             s = in.readLine();
-            System.out.println("S :"+s);
+            System.out.println("S :" + s);
             aList.add(s);
         }
-        
-        
+
+
         String[] sArray = new String[aList.size()];
         sArray = aList.toArray(sArray);
-    
+
         return sArray;
     }
-    
-    private Socket getDataConnection() throws IOException
-    {
+
+    private Socket getDataConnection() throws IOException {
         String[] placeholder = sendCommand("PASV");
         String addrAndPort = "";
 
@@ -99,52 +93,51 @@ public class FTPConnection
         }
 
         StringTokenizer st = new StringTokenizer(addrAndPort, "(,)");
-        
-        if (st.countTokens() < 7)
-        {
-            throw new IOException("Not logged in");    
+
+        if (st.countTokens() < 7) {
+            throw new IOException("Not logged in");
         }
 
-        st.nextToken(); st.nextToken(); st.nextToken(); st.nextToken(); st.nextToken();
-        
-        int portNr = 256*Integer.parseInt(st.nextToken()) + Integer.parseInt(st.nextToken());
-        
+        st.nextToken();
+        st.nextToken();
+        st.nextToken();
+        st.nextToken();
+        st.nextToken();
+
+        int portNr = 256 * Integer.parseInt(st.nextToken()) + Integer.parseInt(st.nextToken());
+
         return new Socket(socket.getInetAddress(), portNr);
     }
-    
-    public void sendData(String command, String data) throws IOException
-	{
-		Socket dc = getDataConnection();
-		PrintStream dataOut = new PrintStream( dc.getOutputStream() );
-		sendCommand(command);
-		dataOut.print(data);
-		dataOut.close();
-		dc.close();
-		readReply();
-	}
 
-	public String[] receiveData(String command) throws IOException
-	{
-		Socket dc = getDataConnection();
-                BufferedReader dataInd = new BufferedReader(new InputStreamReader(
-		dc.getInputStream()));
-		sendCommand(command); // returns bufferedreader
-//		StringBuilder sb = new StringBuilder();
-//		String s = dataInd.readLine();
-//
-                List<String> sa = new ArrayList<>();
-                String s;
-                
-                while((s = dataInd.readLine()) != null) {
-                    sa.add(s);
-                }
-                
-                String[] recievedData = new String[sa.size()];
-                recievedData = sa.toArray(recievedData);
+    public void sendData(String command, String data) throws IOException {
+        Socket dc = getDataConnection();
+        PrintStream dataOut = new PrintStream(dc.getOutputStream());
+        sendCommand(command);
+        dataOut.print(data);
+        dataOut.close();
+        dc.close();
+        readReply();
+    }
 
-                dataInd.close();
-		dc.close();
-                
-                return recievedData;
-	}
+    public String[] receiveData(String command) throws IOException {
+        Socket dc = getDataConnection();
+        BufferedReader dataInd = new BufferedReader(new InputStreamReader(
+                dc.getInputStream()));
+        sendCommand(command);
+
+        List<String> sa = new ArrayList<>();
+        String s;
+
+        while ((s = dataInd.readLine()) != null) {
+            sa.add(s);
+        }
+
+        String[] recievedData = new String[sa.size()];
+        recievedData = sa.toArray(recievedData);
+
+        dataInd.close();
+        dc.close();
+
+        return recievedData;
+    }
 }
