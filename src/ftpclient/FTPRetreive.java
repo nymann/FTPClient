@@ -47,6 +47,7 @@ public class FTPRetreive extends javax.swing.JPanel {
         jLabel2.setText("File list");
 
         jButton1.setText("OK");
+        jButton1.addActionListener(evt -> jButton1ActionPerformed(evt));
 
         jButton2.setText("Cancel");
         jButton2.addActionListener(evt -> jButton2ActionPerformed(evt));
@@ -88,6 +89,10 @@ public class FTPRetreive extends javax.swing.JPanel {
                 .addGap(19, 19, 19))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+        System.out.println("Test");
+    }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         owner.changeTab(3);
