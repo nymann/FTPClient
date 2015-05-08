@@ -5,6 +5,8 @@
  */
 package ftpclient;
 
+import java.io.IOException;
+
 /**
  *
  * @author NannaJosefine
@@ -47,6 +49,7 @@ public class FTPUploadFile extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTextArea2);
 
         jButton1.setText("OK");
+        jButton1.addActionListener(evt -> jButton1ActionPerformed(evt));
 
         jButton2.setText("Cancel");
         jButton2.addActionListener(evt -> jButton2ActionPerformed(evt));
@@ -87,6 +90,17 @@ public class FTPUploadFile extends javax.swing.JPanel {
                 .addContainerGap(20, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+
+        // jTextField2 = FILE NAME
+        // jTextArea2 = FILE CONTENTS
+
+        try {
+            owner.ftp.sendData("STOR " + jTextField2.getText(), jTextArea2.getText());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         owner.changeTab(3);
