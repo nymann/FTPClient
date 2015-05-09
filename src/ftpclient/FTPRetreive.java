@@ -102,12 +102,13 @@ public class FTPRetreive extends javax.swing.JPanel {
 
             String[] serverReply= owner.ftp.receiveData("RETR " + jTextField1.getText());
 
-
-            for(String s : serverReply)
+            printToFile.append(serverReply[0]);
+            for(int i = 1; i < serverReply.length; i++)
             {
-                printToFile.println(s);
+                printToFile.append("\r\n"+serverReply[i]);
+                //printToFile.append(serverReply[i]);
             }
-
+            printToFile.print("");
             printToFile.close();
         } catch (IOException e) {
             e.printStackTrace();
