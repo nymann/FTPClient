@@ -121,12 +121,16 @@ public class FTPConnection {
 
     public String[] receiveData(String command) throws IOException {
         Socket dc = getDataConnection();
-        BufferedReader dataInd = new BufferedReader(new InputStreamReader(
-                dc.getInputStream()));
-        sendCommand(command);
+        BufferedReader dataInd = new BufferedReader(new InputStreamReader(dc.getInputStream()));
+        String[] commandMsg = sendCommand(command);
 
         List<String> sa = new ArrayList<>();
         String s;
+
+        for(String k : commandMsg)
+        {
+            sa.add(k);
+        }
 
         while ((s = dataInd.readLine()) != null) {
             sa.add(s);
