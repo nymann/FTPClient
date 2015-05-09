@@ -5,6 +5,7 @@
  */
 package ftpclient;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -90,10 +91,24 @@ public class FTPRetreive extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
 
-        PrintWriter printToFile;
+
 
         try {
-            owner.ftp.receiveData("RETR " + jTextField1.getText());
+
+            File file = new File("FTPfiles/"+jTextField1.getText());
+            file.getParentFile().mkdirs();
+
+            PrintWriter printToFile = new PrintWriter(file);
+
+            String[] serverReply= owner.ftp.receiveData("RETR " + jTextField1.getText());
+
+
+            for(String s : serverReply)
+            {
+                printToFile.println(s);
+            }
+
+            printToFile.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

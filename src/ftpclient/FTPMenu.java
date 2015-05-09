@@ -89,7 +89,7 @@ public class FTPMenu extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             String[] replyFromServer = owner.ftp.sendCommand("HELP");
-
+            owner.updateTerminalText("\n");
             for (String br : replyFromServer) {
                 owner.updateTerminalText(br);
             }
@@ -105,7 +105,7 @@ public class FTPMenu extends javax.swing.JPanel {
 
         try {
             String[] receivedData = owner.ftp.receiveData("LIST");
-
+            owner.updateTerminalText("\n");
             for (String aReceivedData : receivedData) {
                 owner.updateTerminalText(aReceivedData);
             }

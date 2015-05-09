@@ -127,11 +127,6 @@ public class FTPConnection {
         List<String> sa = new ArrayList<>();
         String s;
 
-        for(String k : commandMsg)
-        {
-            sa.add(k);
-        }
-
         while ((s = dataInd.readLine()) != null) {
             sa.add(s);
         }
