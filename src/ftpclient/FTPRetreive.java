@@ -91,8 +91,6 @@ public class FTPRetreive extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
 
-
-
         try {
 
             File file = new File("FTPfiles/"+jTextField1.getText());
@@ -113,6 +111,7 @@ public class FTPRetreive extends javax.swing.JPanel {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        owner.updateTerminalText("Retreiving "+jTextField1.getText()+" complete.");
         owner.changeTab(3);
     }
 

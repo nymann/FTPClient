@@ -109,7 +109,7 @@ public class FTPMenu extends javax.swing.JPanel {
             for (String aReceivedData : receivedData) {
                 owner.updateTerminalText(aReceivedData);
             }
-            
+            owner.updateTerminalText("Directory listing complete.");
         } catch (IOException ex) {
             Logger.getLogger(FTPMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
