@@ -5,8 +5,12 @@
  */
 package ftpclient;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
@@ -24,13 +28,23 @@ public class FTPConnection {
     private PrintStream out;
     private BufferedReader in;
 
+    public void closeConnection()
+    {
+        try {
+            socket.close();
+        } catch (IOException ex) {
+            Logger.getLogger(FTPConnection.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+        }
+    }
+    
     public String[] connect(String host, String user, String code) throws IOException {
 
         socket = new Socket(host, 21);
         out = new PrintStream(socket.getOutputStream());
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         readReply();
-
+        
         sendCommand("USER " + user);
 
         String[] replyFromServer = sendCommand("PASS " + code);
@@ -39,6 +53,8 @@ public class FTPConnection {
             System.out.println("Reply on pass request: " + aReplyFromServer);
         }
 
+        
+        
         return replyFromServer;
     }
 
@@ -60,16 +76,18 @@ public class FTPConnection {
         System.out.println("Sent: " + command);
         out.println(command);
         out.flush();         // sørg for at data sendes til værten før vi læser svar
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(FTPConnection.class.getName()).log(Level.SEVERE, null, ex);
-            ex.printStackTrace();
-        }
 
         List<String> aList = new ArrayList<>();
         String s;
-
+        s = in.readLine();
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(FTPConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        System.out.println("S :" + s);
+        aList.add(s);
         while (in.ready()) {
             s = in.readLine();
             System.out.println("S :" + s);
@@ -94,6 +112,8 @@ public class FTPConnection {
 
         StringTokenizer st = new StringTokenizer(addrAndPort, "(,)");
 
+        System.out.println("Addresandport: "+addrAndPort);
+        
         if (st.countTokens() < 7) {
             throw new IOException("Not logged in");
         }
@@ -120,6 +140,7 @@ public class FTPConnection {
     }
 
     public String[] receiveData(String command) throws IOException {
+        
         Socket dc = getDataConnection();
         BufferedReader dataInd = new BufferedReader(new InputStreamReader(dc.getInputStream()));
         String[] commandMsg = sendCommand(command);
@@ -136,7 +157,34 @@ public class FTPConnection {
 
         dataInd.close();
         dc.close();
-
+        
         return recievedData;
     }
+
+//    public void receiveBinaryData(String command, File destFile) throws IOException {
+//        
+//        sendCommand("TYPE I");
+//        Socket dc = getDataConnection();
+//        InputStream is = new BufferedInputStream(dc.getInputStream());
+//        FileOutputStream os = new FileOutputStream(destFile);
+//        byte[] buffer = new byte[1024];
+//        
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException ex) {
+//            Logger.getLogger(FTPConnection.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        
+//        while (true) {
+//            System.out.println("reading.... ");
+//            int byteRead = is.read(buffer);
+//            System.out.println("" + byteRead);
+//            if (byteRead == -1) break;
+//            os.write(buffer);            
+//        }
+//        os.close();
+//        is.close();
+//        
+//        sendCommand("TYPE A");
+//    }
 }

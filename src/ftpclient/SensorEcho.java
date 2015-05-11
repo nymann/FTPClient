@@ -5,6 +5,10 @@
  */
 package ftpclient;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author NannaJosefine
@@ -37,9 +41,18 @@ public class SensorEcho extends javax.swing.JPanel {
         jTextArea1 = new javax.swing.JTextArea();
 
         jButton1.setText("OK");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cancel");
-        jButton2.addActionListener(this::jButton2ActionPerformed);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Message");
 
@@ -81,6 +94,24 @@ public class SensorEcho extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         owner.changeTab(4);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        try {
+            String[] msg = owner.zybo.sendCommand("TM20 ECHO "+jTextArea1.getText());
+            
+            for(String s : msg)
+            {
+                owner.updateTerminalText(s);
+            }
+            owner.updateTerminalText("\n");
+        } catch (IOException ex) {
+            Logger.getLogger(SensorMenu.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+        }
+        
+        owner.changeTab(4);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

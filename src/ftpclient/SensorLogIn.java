@@ -5,6 +5,10 @@
  */
 package ftpclient;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author NannaJosefine
@@ -36,15 +40,29 @@ public class SensorLogIn extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
+
         jLabel1.setText("Host");
 
         jLabel2.setText("Port");
 
         jButton1.setText("OK");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cancel");
-        jButton2.addActionListener(this::jButton2ActionPerformed);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -90,21 +108,36 @@ public class SensorLogIn extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-//        try {
-//            owner.zybo.connect(jTextField1.getText(), Integer.parseInt(jTextField2.getText()));
-//        } catch (IOException ex) {
-//            Logger.getLogger(SensorLogIn.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        
-//        if(owner.ftp.connect(jTextField1.getText(),jTextField2.getText(),jPasswordField1.getText()).contains("230"))
-//        {
-//            owner.changeTab(3);
-//        }
-//        else
-//        {
-//            owner.changeTab(0);
-//        }
+        
+        System.out.println("host: "+jTextField1.getText());
+        System.out.println("port: "+Integer.parseInt(jTextField2.getText()));
+            
+        try {
+            owner.zybo.connect(jTextField1.getText(), Integer.parseInt(jTextField2.getText()));
+        } catch (IOException ex) {
+            Logger.getLogger(SensorLogIn.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+        }
+        
+        owner.updateTerminalText("Connecting to: "+jTextField1.getText()+":"+jTextField2.getText()+"\n");
+        owner.changeTab(4);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        
+        System.out.println("host: "+jTextField1.getText());
+        System.out.println("port: "+Integer.parseInt(jTextField2.getText()));
+            
+        try {
+            owner.zybo.connect(jTextField1.getText(), Integer.parseInt(jTextField2.getText()));
+        } catch (IOException ex) {
+            Logger.getLogger(SensorLogIn.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+        }
+        
+        owner.updateTerminalText("Connecting to: "+jTextField1.getText()+":"+jTextField2.getText()+"\n");
+        owner.changeTab(4);
+    }//GEN-LAST:event_jTextField2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

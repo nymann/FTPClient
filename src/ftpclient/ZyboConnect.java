@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,26 +33,40 @@ public class ZyboConnect {
         //sendCommand("-ip "+host+" -port "+port);
     }
 
-    public void readReply() throws IOException {
-        try {
-         //   char rxBuffer[] = new char[1400];
+    public void closeConnection() throws IOException
+    {
+        socket.close();
+    }
+    
+    public String[] readReply() throws IOException {
+        String[] finalMessage;
+//        
+//        try {
+//            Thread.sleep(500);
+//        } catch (InterruptedException ex) {
+//            Logger.getLogger(ZyboConnect.class.getName()).log(Level.SEVERE, null, ex);
+//            ex.printStackTrace();
+//        }
+           List<String> messageHolder = new ArrayList<String>();
            
-            Thread.sleep(500);
+           messageHolder.add(inStream.readLine());
+           
            while(inStream.ready())
            {
-               String s = inStream.readLine();
-               System.out.println("Reply: "+s);
+               messageHolder.add(inStream.readLine());
            }
            
-        } catch (InterruptedException ex) {
-            Logger.getLogger(ZyboConnect.class.getName()).log(Level.SEVERE, null, ex);
-        }
+           finalMessage = new String[messageHolder.size()];
+           
+           finalMessage = messageHolder.toArray(finalMessage);
+        
+        return finalMessage;
     }
 
-    public void sendCommand(String command) throws IOException {
+    public String[] sendCommand(String command) throws IOException {
         System.out.println("Sent: " + command);
         outStream.print(command);
         outStream.flush();
-        readReply();
+        return readReply();
     }
 }

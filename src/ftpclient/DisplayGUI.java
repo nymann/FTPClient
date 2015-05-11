@@ -12,6 +12,7 @@ public class DisplayGUI {
 
 		vindue.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // reagér på luk
 //		vindue.setSize(350, 70);                       // sæt vinduets størrelse
+                vindue.setLocation(350, 200);
 		vindue.pack();
 		vindue.setVisible(true);
 	}   

@@ -9,6 +9,7 @@ import javax.swing.*;
 import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.net.Socket;
+import javax.swing.plaf.basic.BasicTabbedPaneUI;
 
 /**
  *
@@ -19,11 +20,10 @@ public class TabHolder extends javax.swing.JPanel {
     public JFrame terminalFrame = new JFrame();
     public Socket socket;
     public FTPConnection ftp = new FTPConnection();
-    public ZyboConnect zybo;
+    public ZyboConnect zybo = new ZyboConnect();
     public JTextArea jTextArea = new JTextArea();
     public JLayeredPane layerManager = new JLayeredPane();
     public JScrollPane jScrollPane = new JScrollPane(jTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-    //public FTPTerminal fTerminal = new FTPTerminal();
     
     /**
      * Creates new form TabHolder
@@ -38,11 +38,9 @@ public class TabHolder extends javax.swing.JPanel {
         sensorInfo1.owner = this;
         sensorLogIn1.owner = this;
         sensorMenu2.owner = this;
-        sensorStart1.owner = this;
-        sensorStop1.owner = this;
-        sensorTerminal1.owner = this;
-        terminal1.owner = this;
         uploadFile1.owner = this;
+        sensorStop1.owner = this;
+        sensorStart1.owner = this;
         sensorSampleRate1.owner = this;
         
         terminalFrame.setLayout(new BorderLayout());
@@ -69,6 +67,12 @@ public class TabHolder extends javax.swing.JPanel {
         
         terminalFrame.pack();
         terminalFrame.setVisible(true);
+        
+        jTabbedPane1.setUI(new BasicTabbedPaneUI() {
+            protected int calculateTabAreaHeight(int t, int h, int m) {
+                    return 0;
+            }
+        });
     }
 
     /**
@@ -86,10 +90,8 @@ public class TabHolder extends javax.swing.JPanel {
         sensorLogIn1 = new ftpclient.SensorLogIn();
         fTPMenu1 = new ftpclient.FTPMenu();
         sensorMenu2 = new ftpclient.SensorMenu();
-        terminal1 = new ftpclient.FTPTerminal();
         retreive1 = new ftpclient.FTPRetreive();
         uploadFile1 = new ftpclient.FTPUploadFile();
-        sensorTerminal1 = new ftpclient.SensorTerminal();
         sensorStop1 = new ftpclient.SensorStop();
         sensorEcho1 = new ftpclient.SensorEcho();
         sensorInfo1 = new ftpclient.SensorInfo();
@@ -101,10 +103,8 @@ public class TabHolder extends javax.swing.JPanel {
         jTabbedPane1.addTab("SensorLogIn", sensorLogIn1);
         jTabbedPane1.addTab("FTPMenu", fTPMenu1);
         jTabbedPane1.addTab("SensorMenu", sensorMenu2);
-        jTabbedPane1.addTab("FTPTerminal", terminal1);
         jTabbedPane1.addTab("Retreive file", retreive1);
         jTabbedPane1.addTab("Upload file", uploadFile1);
-        jTabbedPane1.addTab("SensorTerminal", sensorTerminal1);
         jTabbedPane1.addTab("SensorStop", sensorStop1);
         jTabbedPane1.addTab("Echo", sensorEcho1);
         jTabbedPane1.addTab("SensorInfo", sensorInfo1);
@@ -115,11 +115,11 @@ public class TabHolder extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -137,8 +137,6 @@ public class TabHolder extends javax.swing.JPanel {
     private ftpclient.SensorSampleRate sensorSampleRate1;
     private ftpclient.SensorStart sensorStart1;
     private ftpclient.SensorStop sensorStop1;
-    private ftpclient.SensorTerminal sensorTerminal1;
-    private ftpclient.FTPTerminal terminal1;
     private ftpclient.FTPUploadFile uploadFile1;
     // End of variables declaration//GEN-END:variables
 
