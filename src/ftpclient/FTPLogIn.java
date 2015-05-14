@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ftpclient;
 
 import java.io.IOException;
@@ -11,7 +6,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author NannaJosefine
+ * @author Emil Granberg && Nanna Dohn
  */
 public class FTPLogIn extends javax.swing.JPanel {
 
@@ -112,10 +107,20 @@ public class FTPLogIn extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Switch to main menu.
+     * @param evt 
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         owner.changeTab(0);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    /**
+     * Attempt connection to the FTP server.
+     * if connection fails, return to main menu.
+     * else switch to FTP menu.
+     * @param evt 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         try {
@@ -133,14 +138,16 @@ public class FTPLogIn extends javax.swing.JPanel {
             if (!success) {
                 owner.changeTab(0);
             }
-
-            //placeholder.close();
         } catch (IOException ex) {
             Logger.getLogger(FTPLogIn.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    /**
+     * Same as OK, react to Return key the same way in the password field.
+     * @param evt 
+     */
     private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
 
             try {
@@ -159,8 +166,6 @@ public class FTPLogIn extends javax.swing.JPanel {
                 if (!success) {
                     owner.changeTab(0);
                 }
-
-                //placeholder.close();
             } catch (IOException ex) {
                 Logger.getLogger(FTPLogIn.class.getName()).log(Level.SEVERE, null, ex);
                 ex.printStackTrace();

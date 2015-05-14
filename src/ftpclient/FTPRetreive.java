@@ -1,20 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ftpclient;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
- * @author NannaJosefine
+ * @author Emil Granberg && Nanna Dohn
  */
 public class FTPRetreive extends javax.swing.JPanel {
 
@@ -89,6 +81,11 @@ public class FTPRetreive extends javax.swing.JPanel {
         );
     }// </editor-fold>
 
+    /**
+     * Retrieve specified file and save it to a file in the FTPfiles directory.
+     * Change tab to the FTP menu.
+     * @param evt 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
 
         try {
@@ -104,7 +101,6 @@ public class FTPRetreive extends javax.swing.JPanel {
             for(int i = 1; i < serverReply.length; i++)
             {
                 printToFile.append("\r\n"+serverReply[i]);
-                //printToFile.append(serverReply[i]);
             }
             printToFile.print("");
             printToFile.close();
@@ -115,6 +111,10 @@ public class FTPRetreive extends javax.swing.JPanel {
         owner.changeTab(3);
     }
 
+    /**
+     * Change tab to FTP menu.
+     * @param evt 
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         owner.changeTab(3);
     }//GEN-LAST:event_jButton2ActionPerformed

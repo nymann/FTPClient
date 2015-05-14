@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ftpclient;
 
 import java.io.IOException;
@@ -11,7 +6,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author NannaJosefine
+ * @author Emil Granberg && Nanna Dohn
  */
 public class SensorEcho extends javax.swing.JPanel {
 
@@ -91,10 +86,19 @@ public class SensorEcho extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Change to Sensor menu window.
+     * @param evt 
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         owner.changeTab(4);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    /**
+     * Send message to echo to the sensor server.
+     * Change window to the sensor menu.
+     * @param evt 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
         try {

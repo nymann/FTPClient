@@ -1,31 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ftpclient;
 
 import javax.swing.*;
-import javax.swing.text.DefaultCaret;
 import java.awt.*;
-import java.net.Socket;
 import javax.swing.plaf.basic.BasicTabbedPaneUI;
 
 /**
  *
- * @author NannaJosefine
+ * @author Emil Granberg && Nanna Dohn
  */
 public class TabHolder extends javax.swing.JPanel {
 
     public JFrame terminalFrame = new JFrame();
-    public Socket socket;
     public FTPConnection ftp = new FTPConnection();
     public ZyboConnect zybo = new ZyboConnect();
     public JTextArea jTextArea = new JTextArea();
-    public JLayeredPane layerManager = new JLayeredPane();
     public JScrollPane jScrollPane = new JScrollPane(jTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     
     /**
+     * Initializes components and set references.
+     * Create a terminal window.
      * Creates new form TabHolder
      */
     public TabHolder() {
@@ -48,12 +41,11 @@ public class TabHolder extends javax.swing.JPanel {
         terminalFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         terminalFrame.setPreferredSize(new Dimension(800,600));
         terminalFrame.setLocation(800, 200);
-        terminalFrame.add(layerManager, BorderLayout.CENTER);
+        terminalFrame.add(jScrollPane, BorderLayout.CENTER);
         terminalFrame.setUndecorated(false);
         terminalFrame.setAlwaysOnTop(false);
         terminalFrame.setResizable(false);
 
-        //jTextArea.setBounds(10, 10, Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
         jTextArea.setBackground(Color.BLACK);
         jTextArea.setForeground(Color.white);
         jTextArea.setWrapStyleWord(true);
@@ -61,9 +53,6 @@ public class TabHolder extends javax.swing.JPanel {
         jTextArea.setEditable(false);
 
         jScrollPane.setBounds(0, 0, 800, 590);
-        layerManager.setBounds(0, 0, 800, 600);
-
-        layerManager.add(jScrollPane, 1, 0);
         
         terminalFrame.pack();
         terminalFrame.setVisible(true);
@@ -140,14 +129,22 @@ public class TabHolder extends javax.swing.JPanel {
     private ftpclient.FTPUploadFile uploadFile1;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Changes window for the user.
+     * @param tabNumber 
+     */
     void changeTab(int tabNumber)
     {
         System.out.println("Shifting to tab "+tabNumber);
         jTabbedPane1.setSelectedIndex(tabNumber);
     }
     
+    /**
+     * Updates the terminal window with text.
+     * @param text 
+     */
     public void updateTerminalText(String text) {
-            SwingUtilities.invokeLater(() -> jTextArea.append(text+"\n"));
+            jTextArea.append(text+"\n");
             terminalFrame.repaint();
-        }
+    }
 }

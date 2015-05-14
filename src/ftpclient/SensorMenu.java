@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ftpclient;
 
 import java.io.IOException;
@@ -11,7 +6,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author NannaJosefine
+ * @author Emil Granberg && Nanna Dohn
  */
 public class SensorMenu extends javax.swing.JPanel {
 
@@ -110,6 +105,10 @@ public class SensorMenu extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Close connection and close the socket. Change to Main menu window.
+     * @param evt 
+     */
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
 
         try {
@@ -122,6 +121,10 @@ public class SensorMenu extends javax.swing.JPanel {
         owner.changeTab(0);
     }//GEN-LAST:event_jButton8ActionPerformed
 
+    /**
+     * Send GSA command to the sensor server.
+     * @param evt 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             String[] msg = owner.zybo.sendCommand("TM20 GSA");
@@ -137,22 +140,43 @@ public class SensorMenu extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    /**
+     * Change tab to the Stop sensor window.
+     * @param evt 
+     */
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         owner.changeTab(7);
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    /**
+     * Change to get sensor info window.
+     * @param evt 
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         owner.changeTab(9);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    /**
+     * Change to Start sensor window.
+     * @param evt 
+     */
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         owner.changeTab(10);
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    /**
+     * Change to echo window.
+     * @param evt 
+     */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         owner.changeTab(8);
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    /**
+     * Send STATUS command to the sensor server.
+     * NOT IMPLEMENTED ON THE SERVER YET.
+     * @param evt 
+     */
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
 
 // Server does not handle this as of now. uncomment when fixed.
@@ -171,6 +195,10 @@ public class SensorMenu extends javax.swing.JPanel {
 //        }
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    /**
+     * Change to set sample rate window.
+     * @param evt 
+     */
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         owner.changeTab(11);
     }//GEN-LAST:event_jButton4ActionPerformed

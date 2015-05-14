@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ftpclient;
 
 import java.io.IOException;
@@ -11,11 +6,10 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author NannaJosefine
+ * @author Emil Granberg && Nanna Dohn
  */
 public class FTPMenu extends javax.swing.JPanel {
     
-    //DisplayGUI displayGUI = new DisplayGUI();
     TabHolder owner;
     
     /**
@@ -86,6 +80,10 @@ public class FTPMenu extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Send help command to the FTP server.
+     * @param evt 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             String[] replyFromServer = owner.ftp.sendCommand("HELP");
@@ -101,6 +99,10 @@ public class FTPMenu extends javax.swing.JPanel {
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    /**
+     * Send LIST command to the FTP server.
+     * @param evt 
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
         try {
@@ -115,14 +117,26 @@ public class FTPMenu extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    /**
+     * Change to the retrieve file window.
+     * @param evt 
+     */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         owner.changeTab(5);
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    /**
+     * Change to the upload file window.
+     * @param evt 
+     */
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         owner.changeTab(6);
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    /**
+     * Close connection and change to main menu window.
+     * @param evt 
+     */
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         owner.ftp.closeConnection();
         owner.updateTerminalText("Connection closed");

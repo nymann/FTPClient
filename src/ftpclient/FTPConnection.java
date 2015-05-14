@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ftpclient;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
@@ -21,13 +12,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * @author Lime
+ * @author Emil Granberg && Nanna Dohn
+ * Inspiration taken from Jakob Nordfalks FTP Connection class.
  */
 public class FTPConnection {
     private Socket socket;
     private PrintStream out;
     private BufferedReader in;
 
+    
+    /**
+     * This method ensures that the client releases the threads from the server
+     * when the user is done.
+     */
     public void closeConnection()
     {
         try {
@@ -38,6 +35,14 @@ public class FTPConnection {
         }
     }
     
+    /**
+     * This method initializes and connects to an FTP server.
+     * @param host
+     * @param user
+     * @param code
+     * @return String[]
+     * @throws IOException 
+     */
     public String[] connect(String host, String user, String code) throws IOException {
 
         socket = new Socket(host, 21);
@@ -53,25 +58,24 @@ public class FTPConnection {
             System.out.println("Reply on pass request: " + aReplyFromServer);
         }
 
-        
-        
         return replyFromServer;
     }
 
+    /**
+     * This method returns the server responses.
+     * @return BufferedReader
+     * @throws IOException 
+     */
     public BufferedReader readReply() throws IOException {
         return in;
-
-//        while (true) 
-//        {
-//            String msg = in.readLine();
-//            System.out.println("Reply: "+msg);
-//            if (msg.length()>=3 && msg.charAt(3)!='-' && Character.isDigit(msg.charAt(0)) && Character.isDigit(msg.charAt(1)) && Character.isDigit(msg.charAt(2)))
-//            {
-//                return msg;
-//            }
-//        }
     }
 
+    /**
+     * This method sends FTP commands to the FTP server.
+     * @param command
+     * @return String[]
+     * @throws IOException 
+     */
     public String[] sendCommand(String command) throws IOException {
         System.out.println("Sent: " + command);
         out.println(command);
@@ -101,6 +105,11 @@ public class FTPConnection {
         return sArray;
     }
 
+    /**
+     * This method asks the server for a passive port and calculates it.
+     * @return Socket
+     * @throws IOException 
+     */
     private Socket getDataConnection() throws IOException {
         String[] placeholder = sendCommand("PASV");
         String addrAndPort = "";
@@ -129,6 +138,12 @@ public class FTPConnection {
         return new Socket(socket.getInetAddress(), portNr);
     }
 
+    /**
+     * This method sends data over a passive connection.
+     * @param command
+     * @param data
+     * @throws IOException 
+     */
     public void sendData(String command, String data) throws IOException {
         Socket dc = getDataConnection();
         PrintStream dataOut = new PrintStream(dc.getOutputStream());
@@ -139,11 +154,17 @@ public class FTPConnection {
         readReply();
     }
 
+    /**
+     * This method receives data over a passive connection.
+     * @param command
+     * @return
+     * @throws IOException 
+     */
     public String[] receiveData(String command) throws IOException {
         
         Socket dc = getDataConnection();
         BufferedReader dataInd = new BufferedReader(new InputStreamReader(dc.getInputStream()));
-        String[] commandMsg = sendCommand(command);
+        sendCommand(command);
 
         List<String> sa = new ArrayList<>();
         String s;
@@ -160,31 +181,4 @@ public class FTPConnection {
         
         return recievedData;
     }
-
-//    public void receiveBinaryData(String command, File destFile) throws IOException {
-//        
-//        sendCommand("TYPE I");
-//        Socket dc = getDataConnection();
-//        InputStream is = new BufferedInputStream(dc.getInputStream());
-//        FileOutputStream os = new FileOutputStream(destFile);
-//        byte[] buffer = new byte[1024];
-//        
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException ex) {
-//            Logger.getLogger(FTPConnection.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        
-//        while (true) {
-//            System.out.println("reading.... ");
-//            int byteRead = is.read(buffer);
-//            System.out.println("" + byteRead);
-//            if (byteRead == -1) break;
-//            os.write(buffer);            
-//        }
-//        os.close();
-//        is.close();
-//        
-//        sendCommand("TYPE A");
-//    }
 }

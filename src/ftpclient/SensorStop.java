@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ftpclient;
 
 import java.io.IOException;
@@ -11,7 +6,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author NannaJosefine
+ * @author Emil Granberg && Nanna Dohn
  */
 public class SensorStop extends javax.swing.JPanel {
 
@@ -96,10 +91,18 @@ public class SensorStop extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Change to the sensor menu window.
+     * @param evt 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         owner.changeTab(4);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    /**
+     * Same as jButton2 react to return in the text field.
+     * @param evt 
+     */
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         
         System.out.println("test2");
@@ -119,6 +122,11 @@ public class SensorStop extends javax.swing.JPanel {
         owner.changeTab(4);
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    /**
+     * Send STOP_S command to the sensor server.
+     * Change to the sensor menu window.
+     * @param evt 
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
         System.out.println("test1");

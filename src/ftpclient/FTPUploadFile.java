@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ftpclient;
 
 import java.io.IOException;
 
 /**
  *
- * @author NannaJosefine
+ * @author Emil Granberg && Nanna Dohn
  */
 public class FTPUploadFile extends javax.swing.JPanel {
 
@@ -90,10 +85,13 @@ public class FTPUploadFile extends javax.swing.JPanel {
                 .addContainerGap(20, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+    
+    /**
+     * Uploads file to the FTP server with specified filename and content.
+     * Change to FTP menu window.
+     * @param evt 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-
-        // jTextField2 = FILE NAME
-        // jTextArea2 = FILE CONTENTS
 
         try {
             owner.ftp.sendData("STOR " + jTextField2.getText(), jTextArea2.getText());
@@ -104,6 +102,10 @@ public class FTPUploadFile extends javax.swing.JPanel {
                 owner.changeTab(3); // back to ftp menu.
     }
 
+    /**
+     * Change to FTP menu window.
+     * @param evt 
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         owner.changeTab(3);
     }//GEN-LAST:event_jButton2ActionPerformed
